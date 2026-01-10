@@ -1,24 +1,23 @@
-import { useState } from "react";
+import React,{ Suspense } from "react";
 import { createRoot } from "react-dom/client";
-import Modal from "./Modal";
+// import Greeting from "./Greeting";
+
+// const LazyGreeting = React.lazy(() => import('./Greeting'));
+
+const LazyGreeting = React.lazy(() => 
+  new Promise((resolve) => {
+    setTimeout(() => resolve(import('./Greeting')), 2000);
+  })
+);
 
 function App() {
-  const [open, setOpen] = useState(false);
-
   return (
     <div>
-        <h1>React Portal Example</h1>
-        <button onClick={ () => setOpen(true) }>Open Modal</button>
-
-        { open && (
-          <Modal>
-            <h2>안녕하세요!</h2>
-            <button onClick={ () => setOpen(false) }>닫기</button>
-          </Modal>
-        )
-      }
+      <Suspense fallback={<div>Loading...</div>}>
+        <LazyGreeting />
+      </Suspense>
     </div>
-  );
+  )
 }
 
 createRoot(document.getElementById('root')).render(
