@@ -1,22 +1,26 @@
 import { createRoot } from "react-dom/client";
-import { useRef } from "react";
+import { useState, useEffect } from "react";
 
-function App() {
-  const a = useRef();
+function Home() {
+  const [data, setData] = useState(null);
 
-  const focusInput = () => {
-    a.current.focus();
-  }
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/todos")
+    .then((res) => res.json())
+    .then((data) => setData(data));
+  },[]);
 
   return (
     <>
-      <input type="text" ref={a} />
-      <button onClick={focusInput}>Input box에 주기</button>
+      {data &&
+        data.map((item) => {
+          return <p key={item.id}>{item.title}</p>
+        })
+      }
     </>
-  )
+  );
 }
 
-
 createRoot(document.getElementById('root')).render(
-  <App />
+  <Home />
 );
