@@ -13,8 +13,8 @@ function Step05(){
             <button onClick={addFruit}>과일 추가</button>
             <ul>
                 {
-                    fruits.map((f, i) => (
-                        <li key={i}>{f}</li>
+                    fruits.map((name, index) => (
+                        <li key={index}>{name}</li>
                     ))
                 }
             </ul>

@@ -9,9 +9,13 @@ function Step06() {
             <h2>할일 목록</h2>
             <ul>
                 {
-                    
+                   tasks.map((t, i) => (
+                    <Step06_Item key={i} text={t} />
+                   ))
                 }
             </ul>
         </div>
     )
 }
+
+export default Step06;
